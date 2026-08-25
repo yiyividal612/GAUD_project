@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>inicio de seccion</title>
+    <link rel="stylesheet" href="stylesheet1.css" />
+    <link rel="icon" type="image/jpg" href="#" /> <!--iconos de la página-->
+</head>
+<body>
+    <!-- ill try to make a login page -->
+    <!--this is intermediate level understanding about html -->
+
+    <!--header and navbar-->
+    <header> 
+       
+        <div class="navigation">
+            <a href="#" class="nav-logo">
+                <h2 class="logo"> GAUD </h2>
+            </a>
+            <ul class="navMenu">
+                <li> <a href="#" class="nav-link" ><big>inicio</big></a></li>
+                <li> <a href="#"class="nav-link"><big>pensums</big></a></li>
+                <li> <a href="#"class="nav-link"><big>contactanos</big></a></li>
+                <li> <a href="#" class="nav-link"><big>ayuda</big></a></li>
+                <li> <a href=" #" class="nav-link" id="registrarse"><big>registrarse</big></a></li>
+            </ul>
+
+        </div>
+        
+    </header>
+   
+    <main>
+        <!--login form -->
+        <div class="form-structure">
+            <div class="formBox">
+                <div class="form-details">
+                    <h2>bienvenido</h2>
+                    <p>inicia seccion utilizando tu información personal para mantenerte conectado  </p>
+                </div>
+                <div class="form-login">
+                    <h2>iniciar sesión</h2>
+                    <form class="form-input" action="#">
+                        <div class="input-box">
+                            <!--this creates an input box-->
+                            <span class="icon"><ion-icon name="/"></ion-icon></span> <!--this is an icon incase there will be one for the mail box-->
+                            <input type="email" placeholder="ejemplo@gmail.com" required /> <!--this specifies what the box format will be -->
+                            <label>email</label> <!--name of the box-->
+                        </div>
+
+                        <div class="input-box">
+                            <!--this creates an input box-->
+                            <span class="icon"><ion-icon name="/"></ion-icon></span> <!--this is an icon incase there will be one for the mail box-->
+                            <input type="password" placeholder="123456789" required />
+                            <label>contraseña</label> <!--name of the box-->
+                        </div>
+
+                        <div class="remember-forgot">
+                            <small> <a href="#">olvidaste tu contraseña?</a></small>
+                          
+                        </div>
+
+                        <button type="submit" class="btn">login</button>
+                        <br />
+                        <footer>
+                            <div class="login/register">
+                                <p>no tienes cuenta? <a href="#" class="registrar-link">registrate</a></p>
+
+                            </div>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
