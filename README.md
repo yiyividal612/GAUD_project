@@ -1,37 +1,3 @@
-# Gestión Académica Universitaria Dominicana (GAUD)
-
-## Descripción del proyecto
-
-**Gestión Académica Universitaria Dominicana (GAUD)** es una aplicación web orientada a estudiantes universitarios en RD cuyo propósito es facilitar la gestión y consulta de su progreso académico.
-
-El proyecto busca ofrecer una herramienta que permita a los estudiantes organizar y consultar información relacionada con su carrera universitaria y pensum académico de una manera sencilla, clara y accesible.
-
-GAUD será desarrollado progresivamente durante el trimestre, en 4 fases, incorporando diferentes tecnologías y funcionalidades en cada fase del proyecto.
-
----
-
-## Objetivo
-
-Desarrollar una aplicación web que permita a los estudiantes gestionar y consultar información relacionada con su carrera y progreso académico.
-
----
-
-## Tecnologías utilizadas
-
-Durante el desarrollo del proyecto se utilizarán las siguientes tecnologías:
-
-- HTML5
-- CSS3
-- JavaScript
-- Backend y base de datos
-- Framework web
-- Git y GitHub
-- ClikcUp
-
-Las tecnologías y funcionalidades se incorporarán progresivamente de acuerdo con las diferentes fases del proyecto.
-
----
-
 ## Estado actual del proyecto
 
 ### Fase 1 — Maquetación del sitio con HTML y CSS
@@ -109,8 +75,3 @@ GAUD utiliza una identidad visual basada principalmente en:
 - Tipografía sans-serif.
 
 La misma identidad visual será utilizada en las diferentes páginas del sitio para mantener una experiencia coherente.
-
----
-
-## Organización del proyecto
-
