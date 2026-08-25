@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAUD - Dashboard del Estudiante</title>
+
+    <!-- METODO 1: CSS EXTERNO
+         Es el archivo de estilos que compartimos entre todas las paginas. -->
+    <link rel="stylesheet" href="dashboard-tommisan.css">
+
+    <!-- METODO 2: CSS INTERNO
+         Estilos que solo se usan en esta pagina, por eso no van en el archivo comun. -->
+    <style>
+        /* Selector de ID: el saludo de esta pagina lleva un tamano mayor */
+        #titulo-saludo {
+            font-size: 23px;
+        }
+
+        /* Caja de avisos, solo existe en el dashboard */
+        .lista-avisos {
+            list-style: square;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .lista-avisos li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenedor general: menu lateral + area de contenido -->
+    <div class="disposicion-dashboard">
+
+        <!-- ===== Menu lateral izquierdo ===== -->
+        <aside class="menu-lateral" id="barra-lateral">
+
+            <!-- Nombre y logo del sistema -->
+            <div class="logo-gaud">
+                <img src="logo-gaud.svg" alt="Logo de GAUD" class="imagen-logo" width="45" height="45">
+                <span class="logo-siglas">GAUD</span>
+                <span class="logo-descripcion">Gestión Académica</span>
+            </div>
+
+            <!-- Enlaces de navegacion en vertical -->
+            <nav class="navegacion-lateral">
+                <ul class="lista-enlaces">
+                    <li><a href="dashboard.html" class="enlace-navegacion enlace-activo">Dashboard</a></li>
+                    <li><a href="index.html" class="enlace-navegacion">Cerrar sesión</a></li>
+                </ul>
+            </nav>
+
+            <!-- Datos del periodo actual al final del menu -->
+            <div class="periodo-lateral">
+                <p class="texto-periodo">Período activo</p>
+                <p class="texto-periodo-valor">Agosto - Octubre 2026</p>
+            </div>
+
+        </aside>
+
+        <!-- ===== Area de contenido a la derecha ===== -->
+        <div class="area-contenido">
+
+            <!-- Barra de arriba con el saludo del estudiante -->
+            <header class="cabecera-superior">
+
+                <div class="bloque-saludo">
+                    <img src="avatar-estudiante.svg" alt="Foto del estudiante" class="imagen-avatar" width="55"
+                        height="55">
+                    <div>
+                        <h1 class="titulo-saludo" id="titulo-saludo">Bienvenido, Luis Manuel Peña</h1>
+                        <p class="texto-carrera">Ingeniería en Software &middot; UAPA &middot; Matrícula 2021-0458</p>
+                    </div>
+                </div>
+
+                <a href="#" class="boton boton-principal">Ver perfil</a>
+
+            </header>
+
+            <!-- Contenido principal del dashboard -->
+            <main class="contenido-principal">
+
+                <!-- ===== Cuatro tarjetas de resumen ===== -->
+                <section class="seccion-resumen">
+                    <h2 class="titulo-seccion">Resumen académico</h2>
+
+                    <div class="grupo-tarjetas">
+
+                        <!-- Tarjeta 1: indice academico -->
+                        <div class="tarjeta-resumen">
+                            <h3 class="titulo-tarjeta">Índice académico</h3>
+                            <p class="dato-tarjeta">3.62</p>
+                            <p class="nota-tarjeta">Escala de 0.00 a 4.00</p>
+                        </div>
+
+                        <!-- Tarjeta 2: creditos aprobados -->
+                        <div class="tarjeta-resumen">
+                            <h3 class="titulo-tarjeta">Créditos aprobados</h3>
+                            <p class="dato-tarjeta">96</p>
+                            <p class="nota-tarjeta">De 210 créditos totales</p>
+                        </div>
+
+                        <!-- Tarjeta 3: asignaturas cursadas -->
+                        <div class="tarjeta-resumen">
+                            <h3 class="titulo-tarjeta">Asignaturas cursadas</h3>
+                            <p class="dato-tarjeta">34</p>
+                            <p class="nota-tarjeta">Aprobadas hasta la fecha</p>
+                        </div>
+
+                        <!-- Tarjeta 4: asignaturas pendientes -->
+                        <div class="tarjeta-resumen">
+                            <h3 class="titulo-tarjeta">Asignaturas pendientes</h3>
+                            <p class="dato-tarjeta">39</p>
+                            <p class="nota-tarjeta">De 73 asignaturas del pénsum</p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ===== Tabla de asignaturas del periodo ===== -->
+                <section class="seccion-asignaturas">
+
+                    <!-- Encabezado de la seccion -->
+                    <div class="cabecera-seccion">
+                        <h2 class="titulo-seccion">Asignaturas del período actual</h2>
+                        <span class="texto-periodo-seccion">Agosto - Octubre 2026</span>
+                    </div>
+
+                    <!-- Contenedor para mover la tabla de lado en pantallas pequenas -->
+                    <div class="contenedor-tabla">
+                        <table class="tabla-asignaturas" id="tabla-asignaturas">
+
+                            <!-- Encabezado de la tabla -->
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Asignatura</th>
+                                    <th>Créditos</th>
+                                    <th>Horario</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+
+                            <!-- Filas con datos de ejemplo.
+                                 Debajo de cada asignatura hay una fila con su detalle. -->
+                            <tbody>
+
+                                <tr>
+                                    <td>ISW-202</td>
+                                    <td>Ingeniería en Software II</td>
+                                    <td>4</td>
+                                    <td>Lunes y Miércoles, 7:00 - 9:00 p.m.</td>
+                                    <td><span class="etiqueta-estado estado-cursando">Cursando</span></td>
+                                </tr>
+                                <tr class="fila-detalle">
+                                    <td colspan="5">
+                                        <details class="detalle-asignatura">
+                                            <summary class="resumen-detalle">Ver detalle</summary>
+                                            <div class="contenido-detalle">
+                                                <p><strong>Facilitador:</strong> Ramón A. Cabrera</p>
+                                                <p><strong>Aula virtual:</strong> Grupo 02 - Plataforma UAPA</p>
+                                                <p><strong>Prerrequisito:</strong> ISW-201 Ingeniería en Software I</p>
+                                                <p><strong>Calificación parcial:</strong> 88 / 100</p>
+                                            </div>
+                                        </details>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>ISW-306</td>
+                                    <td>Desarrollo de Aplicaciones Web</td>
+                                    <td>4</td>
+                                    <td>Martes y Jueves, 6:00 - 8:00 p.m.</td>
+                                    <td><span class="etiqueta-estado estado-cursando">Cursando</span></td>
+                                </tr>
+                                <tr class="fila-detalle">
+                                    <td colspan="5">
+                                        <details class="detalle-asignatura">
+                                            <summary class="resumen-detalle">Ver detalle</summary>
+                                            <div class="contenido-detalle">
+                                                <p><strong>Facilitador:</strong> Yokasta Méndez</p>
+                                                <p><strong>Aula virtual:</strong> Grupo 05 - Plataforma UAPA</p>
+                                                <p><strong>Prerrequisito:</strong> FGI-105 Programación II</p>
+                                                <p><strong>Calificación parcial:</strong> 92 / 100</p>
+                                            </div>
+                                        </details>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>ISW-204</td>
+                                    <td>Diseño de Interfaz de Usuario</td>
+                                    <td>3</td>
+                                    <td>Viernes, 6:00 - 9:00 p.m.</td>
+                                    <td><span class="etiqueta-estado estado-cursando">Cursando</span></td>
+                                </tr>
+                                <tr class="fila-detalle">
+                                    <td colspan="5">
+                                        <details class="detalle-asignatura">
+                                            <summary class="resumen-detalle">Ver detalle</summary>
+                                            <div class="contenido-detalle">
+                                                <p><strong>Facilitador:</strong> Pedro Luis Ventura</p>
+                                                <p><strong>Aula virtual:</strong> Grupo 01 - Plataforma UAPA</p>
+                                                <p><strong>Prerrequisito:</strong> Ninguno</p>
+                                                <p><strong>Calificación parcial:</strong> 85 / 100</p>
+                                            </div>
+                                        </details>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>FGC-106</td>
+                                    <td>Historia Social Dominicana</td>
+                                    <td>3</td>
+                                    <td>Sábado, 8:00 - 11:00 a.m.</td>
+                                    <td><span class="etiqueta-estado estado-cursando">Cursando</span></td>
+                                </tr>
+                                <tr class="fila-detalle">
+                                    <td colspan="5">
+                                        <details class="detalle-asignatura">
+                                            <summary class="resumen-detalle">Ver detalle</summary>
+                                            <div class="contenido-detalle">
+                                                <p><strong>Facilitador:</strong> Carmen Rosario Díaz</p>
+                                                <p><strong>Aula virtual:</strong> Grupo 08 - Plataforma UAPA</p>
+                                                <p><strong>Prerrequisito:</strong> Ninguno</p>
+                                                <p><strong>Calificación parcial:</strong> 90 / 100</p>
+                                            </div>
+                                        </details>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>OPT-070</td>
+                                    <td>Optativa I</td>
+                                    <td>3</td>
+                                    <td>Miércoles, 5:00 - 7:00 p.m.</td>
+                                    <td><span class="etiqueta-estado estado-retirada">Retirada</span></td>
+                                </tr>
+                                <tr class="fila-detalle">
+                                    <td colspan="5">
+                                        <details class="detalle-asignatura">
+                                            <summary class="resumen-detalle">Ver detalle</summary>
+                                            <div class="contenido-detalle">
+                                                <p><strong>Facilitador:</strong> Sin asignar</p>
+                                                <p><strong>Aula virtual:</strong> No disponible</p>
+                                                <p><strong>Prerrequisito:</strong> Ninguno</p>
+                                                <p><strong>Nota:</strong> Asignatura retirada el 12 de agosto de 2026</p>
+                                            </div>
+                                        </details>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ===== Lista de avisos ===== -->
+                <section class="seccion-avisos" id="avisos">
+                    <h2 class="titulo-seccion">Avisos del período</h2>
+
+                    <div class="caja-avisos">
+                        <ul class="lista-avisos">
+                            <!-- METODO 3: CSS EN LINEA
+                                 Se usa aqui para resaltar un solo elemento puntual. -->
+                            <li style="color: #a33a3a; font-weight: bold;">
+                                Entrega de la Fase 1 del proyecto de ISW-306: 8 de septiembre de 2026.
+                            </li>
+                            <li>Selección de asignaturas del próximo período: del 5 al 12 de octubre.</li>
+                            <li>Fecha límite para retiro de asignaturas: 30 de septiembre.</li>
+                            <li>Recuerde mantener el índice sobre 2.00 para conservar la beca.</li>
+                        </ul>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- ===== Pie de pagina ===== -->
+            <footer class="pie-pagina">
+                <p class="texto-pie">GAUD - Gestión Académica Universitaria Dominicana &copy; 2026</p>
+            </footer>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
