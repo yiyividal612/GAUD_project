@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil — GAUD</title>
+  <link rel="icon" href="icon/icon-web.png" type="image/png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-img">
+          <img src="icon/icon-web.png" alt="GAUD">
+        </div>
+        <h2>GAUD</h2>
+        <p>Gestión Académica</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="dashboard-tommisan.html">
+          <span class="nav-icon"><img src="icon/tachometer-average.png" alt=""></span> Dashboard
+        </a>
+        <a href="asignaturas.html">
+          <span class="nav-icon"><img src="icon/books.png" alt=""></span> Asignaturas
+        </a>
+        <a href="perfil.html" class="active">
+          <span class="nav-icon"><img src="icon/user.png" alt=""></span> Mi Perfil
+        </a>
+        <a href="index.html">
+          <span class="nav-icon"><img src="icon/user-logout.png" alt=""></span> Cerrar sesión
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini">
+          <div class="user-avatar">
+            <img src="icon/user.png" alt="">
+          </div>
+          <div class="user-info">
+            <div class="user-name">Luis M. Peña</div>
+            <div class="user-role">Estudiante</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1>Mi Perfil</h1>
+          <p>Información personal y académica</p>
+        </div>
+        <div class="topbar-actions">
+          <a href="dashboard-tommisan.html" class="btn btn-outline">Volver</a>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="profile-layout">
+
+          <!-- Profile Header Card -->
+          <div class="profile-header-card">
+            <div class="profile-avatar">
+              <img src="icon/user.png" alt="Foto de perfil">
+              <button class="avatar-edit">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </button>
+            </div>
+            <div class="profile-header-info">
+              <h2>Luis Manuel Peña</h2>
+              <p>Estudiante · Ingeniería en Software</p>
+              <div class="profile-badges">
+                <span class="badge badge-info">Matrícula 2021-0458</span>
+                <span class="badge badge-success">Activo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Grid -->
+          <div class="profile-grid">
+
+            <!-- Datos Personales -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Datos Personales</h3>
+              </div>
+              <div class="card-body">
+                <div class="info-row">
+                  <span class="info-label">Nombre completo</span>
+                  <span class="info-value">Luis Manuel Peña Rodríguez</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Correo electrónico</span>
+                  <span class="info-value">20210458@p.uapa.edu.do</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Teléfono</span>
+                  <span class="info-value">+1 (809) 555-0142</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Fecha de nacimiento</span>
+                  <span class="info-value">15 de marzo de 2000</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Cédula</span>
+                  <span class="info-value">001-1234567-8</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Dirección</span>
+                  <span class="info-value">Santo Domingo, DN</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Datos Académicos -->
+            <div class="card">
+              <div class="card-header">
+                <h3>Datos Académicos</h3>
+              </div>
+              <div class="card-body">
+                <div class="info-row">
+                  <span class="info-label">Carrera</span>
+                  <span class="info-value">Ingeniería en Software</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Universidad</span>
+                  <span class="info-value">UAPA</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Modalidad</span>
+                  <span class="info-value">A distancia (Virtual)</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Período actual</span>
+                  <span class="info-value">7mo Trimestre · Ago - Oct 2026</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Índice académico</span>
+                  <span class="info-value">3.62</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Créditos aprobados</span>
+                  <span class="info-value">96 / 225</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Asignaturas cursadas</span>
+                  <span class="info-value">34</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Asignaturas pendientes</span>
+                  <span class="info-value">39</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Progreso de la Carrera</h3>
+              <span class="badge badge-info">42.7%</span>
+            </div>
+            <div class="card-body">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 42.7%"></div>
+              </div>
+              <div class="progress-labels">
+                <span>96 créditos aprobados</span>
+                <span>129 créditos restantes</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

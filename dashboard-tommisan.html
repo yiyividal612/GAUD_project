@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAUD - Dashboard del Estudiante</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <!-- ===== Sidebar ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-img">
+                    <img src="icon/icon-web.png" alt="GAUD">
+                </div>
+                <h2>GAUD</h2>
+                <p>Gestión Académica</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard-tommisan.html" class="active">
+                    <span class="nav-icon"><img src="icon/tachometer-average.png" alt=""></span> Dashboard
+                </a>
+                <a href="asignaturas.html">
+                    <span class="nav-icon"><img src="icon/books.png" alt=""></span> Asignaturas
+                </a>
+                <a href="perfil.html">
+                    <span class="nav-icon"><img src="icon/user.png" alt=""></span> Mi Perfil
+                </a>
+                <a href="index.html">
+                    <span class="nav-icon"><img src="icon/user-logout.png" alt=""></span> Cerrar sesión
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-mini">
+                    <div class="user-avatar"><img src="icon/user.png" alt=""></div>
+                    <div class="user-info">
+                        <div class="user-name">Luis M. Peña</div>
+                        <div class="user-role">Estudiante</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== Main Content ===== -->
+        <div class="main-content">
+
+            <header class="topbar">
+                <div class="topbar-title">
+                    <h1>Bienvenido, Luis Manuel Peña</h1>
+                    <p>Ingeniería en Software &middot; UAPA &middot; Matrícula 2021-0458</p>
+                </div>
+                <div class="topbar-actions">
+                    <a href="perfil.html" class="btn btn-outline">Ver perfil</a>
+                </div>
+            </header>
+
+            <main class="page-content">
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><img src="icon/tachometer-average.png" alt=""></div>
+                        <div class="stat-value">3.62</div>
+                        <div class="stat-label">Índice académico</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><img src="icon/check.png" alt=""></div>
+                        <div class="stat-value">96</div>
+                        <div class="stat-label">Créditos aprobados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><img src="icon/books.png" alt=""></div>
+                        <div class="stat-value">34</div>
+                        <div class="stat-label">Asignaturas cursadas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><img src="icon/duration-alt.png" alt=""></div>
+                        <div class="stat-value">39</div>
+                        <div class="stat-label">Asignaturas pendientes</div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="dashboard-grid">
+
+                    <!-- Asignaturas del período -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Asignaturas del período actual</h3>
+                            <span class="badge badge-info">Ago - Oct 2026</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="subject-list-item">
+                                <div class="subject-info">
+                                    <h4>ISW-202 - Ingeniería en Software II</h4>
+                                    <p>Lun y Mié, 7:00 - 9:00 p.m.</p>
+                                </div>
+                                <span class="badge badge-success">Cursando</span>
+                            </div>
+                            <div class="subject-list-item">
+                                <div class="subject-info">
+                                    <h4>ISW-306 - Desarrollo de Aplicaciones Web</h4>
+                                    <p>Mar y Jue, 6:00 - 8:00 p.m.</p>
+                                </div>
+                                <span class="badge badge-success">Cursando</span>
+                            </div>
+                            <div class="subject-list-item">
+                                <div class="subject-info">
+                                    <h4>ISW-204 - Diseño de Interfaz de Usuario</h4>
+                                    <p>Vie, 6:00 - 9:00 p.m.</p>
+                                </div>
+                                <span class="badge badge-success">Cursando</span>
+                            </div>
+                            <div class="subject-list-item">
+                                <div class="subject-info">
+                                    <h4>FGC-106 - Historia Social Dominicana</h4>
+                                    <p>Sáb, 8:00 - 11:00 a.m.</p>
+                                </div>
+                                <span class="badge badge-success">Cursando</span>
+                            </div>
+                            <div class="subject-list-item">
+                                <div class="subject-info">
+                                    <h4>OPT-070 - Optativa I</h4>
+                                    <p>Mié, 5:00 - 7:00 p.m.</p>
+                                </div>
+                                <span class="badge badge-danger">Retirada</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Avisos -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Avisos del período</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="subject-list-item" style="flex-direction:column; align-items:flex-start; gap:0.5rem;">
+                                <p style="color: var(--danger); font-weight:600; font-size:0.85rem;">
+                                    Entrega Fase 1 de ISW-306: 8 de septiembre de 2026
+                                </p>
+                            </div>
+                            <div class="subject-list-item" style="flex-direction:column; align-items:flex-start; gap:0.5rem;">
+                                <p style="font-size:0.85rem;">Selección de asignaturas próximo período: 5 al 12 de octubre</p>
+                            </div>
+                            <div class="subject-list-item" style="flex-direction:column; align-items:flex-start; gap:0.5rem;">
+                                <p style="font-size:0.85rem;">Fecha límite retiro de asignaturas: 30 de septiembre</p>
+                            </div>
+                            <div class="subject-list-item" style="flex-direction:column; align-items:flex-start; gap:0.5rem; border-bottom:none;">
+                                <p style="font-size:0.85rem;">Mantén el índice sobre 2.00 para conservar la beca</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
