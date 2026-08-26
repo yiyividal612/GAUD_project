@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Grid de Asignaturas — Maqueta</title>
+<style>
+  :root{
+    --bg: #0f1115;
+    --panel: #171a21;
+    --panel-2: #1e222b;
+    --ink: #e9ebf0;
+    --ink-dim: #8b93a7;
+    --line: #2a2f3a;
+    --accent: #5ee6c9;
+    --accent-2: #f2a65a;
+    --approved: #3a5f52;
+    --current: #5ee6c9;
+    --pending: #2a2f3a;
+    --font-display: "Iowan Old Style", "Georgia", serif;
+    --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", "Menlo", monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    padding:48px 32px 80px;
+  }
+  header{
+    max-width:1180px;
+    margin:0 auto 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:1px solid var(--line);
+    padding-bottom:24px;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 10px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:400;
+    font-size:38px;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .meta{
+    text-align:right;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--ink-dim);
+    line-height:1.6;
+  }
+  .meta strong{color:var(--ink);}
+
+  .legend{
+    max-width:1180px;
+    margin:0 auto 36px;
+    display:flex;
+    gap:22px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--ink-dim);
+  }
+  .legend span{display:flex;align-items:center;gap:7px;}
+  .dot{width:9px;height:9px;border-radius:2px;display:inline-block;}
+
+  .grid-wrap{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .term{
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+  }
+  .term-head{
+    padding:16px 14px;
+    background:var(--panel);
+    border-bottom:1px solid var(--line);
+  }
+  .term-num{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:0.1em;
+    color:var(--ink-dim);
+    text-transform:uppercase;
+  }
+  .term-title{
+    font-family:var(--font-display);
+    font-size:16px;
+    margin-top:4px;
+  }
+  .course{
+    padding:12px 14px;
+    border-bottom:1px solid var(--line);
+    background:var(--panel-2);
+    position:relative;
+    transition:background .15s ease;
+  }
+  .course:last-child{border-bottom:none; flex:1;}
+  .course:hover{background:#242833;}
+  .course-name{
+    font-size:13px;
+    line-height:1.4;
+    margin:0 0 8px;
+  }
+  .course-foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .credits{
+    font-family:var(--font-mono);
+    font-size:10px;
+    color:var(--ink-dim);
+  }
+  .status-bar{
+    width:22px;
+    height:4px;
+    border-radius:2px;
+  }
+  .status-approved .status-bar{background:var(--approved);}
+  .status-current .status-bar{background:var(--current); box-shadow:0 0 8px var(--current);}
+  .status-pending .status-bar{background:var(--pending); border:1px solid var(--line);}
+
+  .status-current{outline:1px solid var(--current); outline-offset:-1px;}
+
+  footer{
+    max-width:1180px;
+    margin:40px auto 0;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--ink-dim);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <p class="eyebrow">Propuesta visual · v1</p>
+    <h1>Grid de Asignaturas</h1>
+  </div>
+  <div class="meta">
+    <div><strong>21</strong> asignaturas · <strong>5</strong> periodos</div>
+    <div>Maqueta para revisión de equipo</div>
+  </div>
+</header>
+
+<div class="legend">
+  <span><i class="dot" style="background:var(--approved)"></i> Aprobada</span>
+  <span><i class="dot" style="background:var(--current)"></i> En curso</span>
+  <span><i class="dot" style="background:var(--pending);border:1px solid var(--line)"></i> Pendiente</span>
+</div>
+
+<div class="grid-wrap">
+
+  <div class="term">
+    <div class="term-head">
+      <div class="term-num">Periodo 01</div>
+      <div class="term-title">Fundamentos</div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Introducción a la disciplina</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Comunicación escrita</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Matemática básica</p>
+      <div class="course-foot"><span class="credits">4 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Taller introductorio</p>
+      <div class="course-foot"><span class="credits">2 CR</span><span class="status-bar"></span></div>
+    </div>
+  </div>
+
+  <div class="term">
+    <div class="term-head">
+      <div class="term-num">Periodo 02</div>
+      <div class="term-title">Bases técnicas</div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Lógica y resolución de problemas</p>
+      <div class="course-foot"><span class="credits">4 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Estadística aplicada</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Herramientas digitales</p>
+      <div class="course-foot"><span class="credits">2 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-approved">
+      <p class="course-name">Electiva I</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+  </div>
+
+  <div class="term">
+    <div class="term-head">
+      <div class="term-num">Periodo 03</div>
+      <div class="term-title">Especialización inicial</div>
+    </div>
+    <div class="course status-current">
+      <p class="course-name">Fundamentos de la especialidad I</p>
+      <div class="course-foot"><span class="credits">4 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-current">
+      <p class="course-name">Metodología de proyectos</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-current">
+      <p class="course-name">Análisis de datos</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Electiva II</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+  </div>
+
+  <div class="term">
+    <div class="term-head">
+      <div class="term-num">Periodo 04</div>
+      <div class="term-title">Profundización</div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Fundamentos de la especialidad II</p>
+      <div class="course-foot"><span class="credits">4 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Gestión y planificación</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Laboratorio aplicado</p>
+      <div class="course-foot"><span class="credits">3 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Electiva III</p>
+      <div class="course-foot"><span class="credits">2 CR</span><span class="status-bar"></span></div>
+    </div>
+  </div>
+
+  <div class="term">
+    <div class="term-head">
+      <div class="term-num">Periodo 05</div>
+      <div class="term-title">Cierre</div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Proyecto integrador</p>
+      <div class="course-foot"><span class="credits">5 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Ética profesional</p>
+      <div class="course-foot"><span class="credits">2 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Práctica final</p>
+      <div class="course-foot"><span class="credits">4 CR</span><span class="status-bar"></span></div>
+    </div>
+    <div class="course status-pending">
+      <p class="course-name">Seminario de cierre</p>
+      <div class="course-foot"><span class="credits">2 CR</span><span class="status-bar"></span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Nota: nombres de asignaturas y periodos son placeholders — se ajustan al contenido real del grid.</footer>
+
+</body>
+</html>
