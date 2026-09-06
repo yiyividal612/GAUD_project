@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAUD - Dashboard del Estudiante</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/validaciones.js" defer></script>
+
 </head>
 <body>
 
@@ -20,30 +22,35 @@
                 <p>Gestión Académica</p>
             </div>
 
-            <nav class="sidebar-nav">
+            <nav class="sidebar-nav" id="Sbar">
                 <a href="dashboard-tommisan.html" class="active">
-                    <span class="nav-icon"><img src="icon/tachometer-average.png" alt=""></span> Dashboard
+                    <span class="nav-icon" id="dBoard"><img src="icon/tachometer-average.png" alt=""></span> Dashboard
                 </a>
                 <a href="asignaturas.html">
-                    <span class="nav-icon"><img src="icon/books.png" alt=""></span> Asignaturas
+                    <span class="nav-icon" id="asig"><img src="icon/books.png" alt=""></span> Asignaturas
                 </a>
                 <a href="perfil.html">
-                    <span class="nav-icon"><img src="icon/user.png" alt=""></span> Mi Perfil
+                    <span class="nav-icon" id="Mperfil"><img src="icon/user.png" alt=""></span> Mi Perfil
                 </a>
                 <a href="index.html">
-                    <span class="nav-icon"><img src="icon/user-logout.png" alt=""></span> Cerrar sesión
+                    <span class="nav-icon" id="Capp"><img src="icon/user-logout.png" alt=""></span> Cerrar sesión
                 </a>
             </nav>
 
             <div class="sidebar-footer">
-                <div class="user-mini">
-                    <div class="user-avatar"><img src="icon/user.png" alt=""></div>
+                <div class="user-mini" >
+                    <div class="user-avatar"id="ava" ><img src="icon/user.png" alt=""></div>
                     <div class="user-info">
                         <div class="user-name">Luis M. Peña</div>
                         <div class="user-role">Estudiante</div>
                     </div>
+                    <div class="dropdown"id="menu">
+                           <a href="index.html"> agregar otra cuenta</a>
+                          <a href="#">salir</a>
+                    </div>
                 </div>
             </div>
+           
         </aside>
 
         <!-- ===== Main Content ===== -->
@@ -163,6 +170,6 @@
         </div>
 
     </div>
-
+    
 </body>
 </html>
