@@ -6,6 +6,9 @@
     <title>GAUD - Dashboard del Estudiante</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/validaciones.js" defer></script>
+    <script src="js/header.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+    <script src="js/logo.js" defer></script>
 
 </head>
 <body>
@@ -15,9 +18,9 @@
         <!-- ===== Sidebar ===== -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="logo-img">
+                <a href="dashboard-tommisan.html" class="logo-img" id="logo-dashboard">
                     <img src="icon/icon-web.png" alt="GAUD">
-                </div>
+                </a>
                 <h2>GAUD</h2>
                 <p>Gestión Académica</p>
             </div>
@@ -72,22 +75,22 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon blue"><img src="icon/tachometer-average.png" alt=""></div>
-                        <div class="stat-value">3.62</div>
+                        <div class="stat-value" id="indice-academico-dashboard">3.62</div>
                         <div class="stat-label">Índice académico</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon green"><img src="icon/check.png" alt=""></div>
-                        <div class="stat-value">96</div>
+                        <div class="stat-value" id="creditos-aprobados-dashboard">96</div>
                         <div class="stat-label">Créditos aprobados</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon orange"><img src="icon/books.png" alt=""></div>
-                        <div class="stat-value">34</div>
+                        <div class="stat-value" id="asignaturas-cursadas-dashboard">34</div>
                         <div class="stat-label">Asignaturas cursadas</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon purple"><img src="icon/duration-alt.png" alt=""></div>
-                        <div class="stat-value">39</div>
+                        <div class="stat-value" id="asignaturas-pendientes-dashboard">39</div>
                         <div class="stat-label">Asignaturas pendientes</div>
                     </div>
                 </div>
