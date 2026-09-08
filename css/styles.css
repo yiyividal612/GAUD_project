@@ -389,6 +389,29 @@ a {
   gap: 1rem;
 }
 
+.header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.header-info-fecha {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.header-info-usuario {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.logo-img {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
 .page-content {
   padding: 2rem;
   flex: 1;
