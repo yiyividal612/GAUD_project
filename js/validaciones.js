@@ -254,6 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     btnEditarPerfil.textContent = "Editar perfil";
+    const mensaje = document.createElement("p");
+mensaje.textContent = "Cambios aplicados correctamente.";
+btnEditarPerfil.parentElement.appendChild(mensaje);
     return true;
   }
 
