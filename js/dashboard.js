@@ -26,8 +26,12 @@ function actualizarStatsDashboard(perfil) {
     document.getElementById("creditos-aprobados-dashboard").textContent = perfil.creditosAprobados;
     document.getElementById("asignaturas-cursadas-dashboard").textContent = perfil.asignaturasCursadas;
     document.getElementById("asignaturas-pendientes-dashboard").textContent = perfil.asignaturasPendientes;
+    const progreso = perfil.calcularProgreso();
 
-    return perfil.calcularProgreso();
+document.getElementById("progreso-carrera-dashboard").textContent =
+    progreso.toFixed(1) + "%";
+
+    return progreso;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
