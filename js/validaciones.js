@@ -144,7 +144,10 @@ document.addEventListener("DOMContentLoaded", () => {
     formulario.addEventListener("submit", (event) => {
       event.preventDefault(); // nunca recarga la página
       if (validarFormulario(formulario, camposLogin)) {
-        mostrarExitoYRedirigir(MENSAJE_EXITO_LOGIN, "dashboard-tommisan.html");
+        const destino = localStorage.getItem("gaudTerminosPendientes") === "true"
+          ? "asignaturas.html"
+          : "dashboard-tommisan.html";
+        mostrarExitoYRedirigir(MENSAJE_EXITO_LOGIN, destino);
       }
     });
   }
@@ -168,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formulario.addEventListener("submit", (event) => {
       event.preventDefault();
       if (validarFormulario(formulario, camposRegistro)) {
+        localStorage.setItem("gaudTerminosPendientes", "true");
         mostrarExitoYRedirigir(MENSAJE_EXITO_REGISTRO, "index.html");
       }
     });
