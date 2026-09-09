@@ -13,6 +13,8 @@
 </head>
 <body>
 
+
+    <div class="overlay"></div> <!-- este es el overlay para los Terminos y condiciones-->
     <div class="app-layout">
 
         <!-- ===== Sidebar ===== -->
@@ -47,16 +49,17 @@
                         <div class="user-name">Luis M. Peña</div>
                         <div class="user-role">Estudiante</div>
                     </div>
-                    <div class="dropdown"id="menu">
-                           <a href="index.html"> agregar otra cuenta</a>
-                          <a href="#">salir</a>
+                    <div class="dropdown" id="menu">
+                        <a href="#" id="addProfile"> agregar otra cuenta</a>
+                        <a href="#" id="logout">salir</a>
                     </div>
                 </div>
             </div>
-           
+
         </aside>
 
         <!-- ===== Main Content ===== -->
+
         <div class="main-content">
 
             <header class="topbar">
@@ -164,6 +167,22 @@
                                 <p style="font-size:0.85rem;">Mantén el índice sobre 2.00 para conservar la beca</p>
                             </div>
                         </div>
+                    </div>
+
+                </div>
+                                                <!--Terminos y condiciones-->
+                <div id=" Terminos&Cond" class=" modal">
+                    <div id="contenidoT">
+                        <p1>terminos y condiciones.</p1>
+                        <br />
+                        <p2> al precionar <b>acepto</b> aceptas los <a href="#" id="TC">Terminos y Condiciones</a> de este sitio.</p2>
+                        <br />
+                        
+                    </div>
+                                                    <!--botones de los T&C-->
+                    <div class="button-container">
+                        <button type="submit" class="TCbtns">Declinar</button>
+                        <button type="submit" class="TCbtns">Acepto los Términos y Condiciones</button>
                     </div>
 
                 </div>
