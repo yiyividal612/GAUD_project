@@ -301,6 +301,7 @@ a {
   width: 40px;
   height: 40px;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
 .sidebar-header .logo-img img {
