@@ -9,6 +9,7 @@
   <script src="js/validaciones.js" defer></script>
   <script src="js/header.js" defer></script>
   <script src="js/logo.js" defer></script>
+  <script src="js/perfil-foto.js" defer></script>
 </head>
 <body>
   <div class="app-layout">
@@ -71,13 +72,25 @@
         <div class="profile-layout">
 
           <!-- Profile Header Card -->
-          <div class="profile-header-card">
-            <div class="profile-avatar">
-              <img src="icon/user.png" alt="Foto de perfil">
-              <button class="avatar-edit">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              </button>
-            </div>
+          <div class="profile-avatar">
+    <img id="fotoPerfil" src="icon/user.png" alt="Foto de perfil">
+
+    <input
+        type="file"
+        id="inputFotoPerfil"
+        accept="image/*"
+        hidden
+    >
+
+    <button type="button" class="avatar-edit" id="btnCambiarFoto" title="Cambiar foto">
+        <svg width="16" height="16" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+    </button>
+</div>
             <div class="profile-header-info">
               <h2>Luis Manuel Peña</h2>
               <p>Estudiante · Ingeniería en Software</p>
