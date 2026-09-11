@@ -1,45 +1,69 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const CLAVE_TERMINOS_PENDIENTES = "gaudTerminosPendientes";
-  const overlay = document.getElementById("terminos-overlay");
-  const contenidoPrincipal = document.querySelector(".app-layout");
-  const botonAceptar = document.getElementById("aceptar-terminos");
-  const botonRechazar = document.getElementById("rechazar-terminos");
+const GAUD_Terminos = (function () {
+  const CLAVE = "gaud_terminos_aceptados";
 
-  if (!overlay || !contenidoPrincipal || !botonAceptar || !botonRechazar) {
-    return;
-  }
-
-  const terminosPendientes = localStorage.getItem(CLAVE_TERMINOS_PENDIENTES) === "true";
-
-  if (!terminosPendientes) {
-    return;
-  }
-
-  overlay.hidden = false;
-  contenidoPrincipal.inert = true;
-  contenidoPrincipal.setAttribute("aria-hidden", "true");
-  document.body.classList.add("terminos-abiertos");
-  botonAceptar.focus();
-
-  function bloquearEscape(evento) {
-    if (evento.key === "Escape") {
-      evento.preventDefault();
+  function estaAceptado() {
+    try {
+      return sessionStorage.getItem(CLAVE) === "1";
+    } catch (e) {
+      return false;
     }
   }
 
-  document.addEventListener("keydown", bloquearEscape);
+  function aceptar() {
+    try {
+      sessionStorage.setItem(CLAVE, "1");
+    } catch (e) {}
+    return true;
+  }
 
-  botonAceptar.addEventListener("click", () => {
-    localStorage.removeItem(CLAVE_TERMINOS_PENDIENTES);
-    overlay.hidden = true;
-    contenidoPrincipal.inert = false;
-    contenidoPrincipal.removeAttribute("aria-hidden");
-    document.body.classList.remove("terminos-abiertos");
-    document.removeEventListener("keydown", bloquearEscape);
-  });
+  function rechazar() {
+    try {
+      sessionStorage.removeItem(CLAVE);
+    } catch (e) {}
+    if (typeof window !== "undefined") {
+      window.location.href = "index.html";
+    }
+  }
 
-  botonRechazar.addEventListener("click", () => {
-    sessionStorage.removeItem("usuarioGAUD");
-    window.location.replace("index.html");
-  });
-});
+  function mostrar(overlay) {
+    if (!overlay) return;
+    overlay.removeAttribute("hidden");
+    if (typeof document !== "undefined") document.body.classList.add("terminos-abiertos");
+  }
+
+  function ocultar(overlay) {
+    if (!overlay) return;
+    overlay.setAttribute("hidden", "");
+    if (typeof document !== "undefined") document.body.classList.remove("terminos-abiertos");
+  }
+
+  function obtenerOverlay() {
+    if (typeof document === "undefined") return null;
+    return document.querySelector("#terminos-overlay");
+  }
+
+  function enlazar() {
+    const overlay = obtenerOverlay();
+    if (!overlay) return;
+    const aceptarBtn = overlay.querySelector("#aceptar-terminos");
+    const rechazarBtn = overlay.querySelector("#rechazar-terminos");
+
+    if (!estaAceptado()) mostrar(overlay);
+
+    if (aceptarBtn) {
+      aceptarBtn.addEventListener("click", function () {
+        aceptar();
+        ocultar(overlay);
+      });
+    }
+    if (rechazarBtn) {
+      rechazarBtn.addEventListener("click", function () { rechazar(); });
+    }
+  }
+
+  return { CLAVE, estaAceptado, aceptar, rechazar, mostrar, ocultar, obtenerOverlay, enlazar };
+})();
+
+if (typeof document !== "undefined") {
+  document.addEventListener("DOMContentLoaded", function () { GAUD_Terminos.enlazar(); });
+}
