@@ -1,228 +1,200 @@
-document.addEventListener("DOMContentLoaded", function () {
-  var form = document.getElementById("form-perfil");
-  if (!form) {
-    return;
+const GAUD_Perfil = (function () {
+  function V() {
+    return typeof GAUD_Validaciones !== "undefined" ? GAUD_Validaciones : null;
   }
 
-  var campos = {
-    nombre: document.getElementById("nombre"),
-    correo: document.getElementById("correo"),
-    telefono: document.getElementById("telefono"),
-    nacimiento: document.getElementById("nacimiento"),
-    cedula: document.getElementById("cedula"),
-    direccion: document.getElementById("direccion"),
+  const CAMPOS = {
+    "correo-perfil": { clave: "email", validar: function (v) { return V().esEmailValido(v); }, mensaje: "Ingresa un correo válido" },
+    "telefono-perfil": { clave: "telefono", validar: function (v) { return V().esTelefonoValido(v); }, mensaje: "Ingresa un teléfono válido" },
+    "direccion-perfil": { clave: "direccion", validar: function (v) { return V().esRequerido(v); }, mensaje: "La dirección es obligatoria" }
   };
 
-  var alerta = document.getElementById("perfil-alerta");
-  var tituloPerfil = document.querySelector(".profile-header-info h2");
-  var nombreSidebar = document.querySelector(".user-name");
-
-  function texto(campo) {
-    return campo.value.trim();
+  function calcularProgreso(aprobados, totales) {
+    if (!totales) return 0;
+    return Math.round((aprobados / totales) * 1000) / 10;
   }
 
-  function mostrarError(campo, mensaje) {
-    var aviso = form.querySelector('[data-error-for="' + campo.id + '"]');
-    campo.classList.add("is-invalid");
-    campo.classList.remove("is-valid");
-    if (aviso) {
-      aviso.textContent = mensaje;
+  function resumenAcademico(pensum) {
+    const aprobadas = pensum.filter(function (a) { return a.estado === "aprobada"; });
+    const creditosAprobados = aprobadas.reduce(function (s, a) { return s + a.creditos; }, 0);
+    const creditosTotales = pensum.reduce(function (s, a) { return s + a.creditos; }, 0);
+    const ponderado = aprobadas.reduce(function (s, a) { return s + a.calificacion * a.creditos; }, 0);
+    const indice = creditosAprobados ? Math.round((ponderado / creditosAprobados) * 100) / 100 : 0;
+    const pendientes = pensum.filter(function (a) { return a.estado === "pendiente"; }).length;
+    return {
+      indice,
+      creditosAprobados,
+      creditosTotales,
+      creditosRestantes: creditosTotales - creditosAprobados,
+      cursadas: aprobadas.length,
+      pendientes,
+      porcentaje: calcularProgreso(creditosAprobados, creditosTotales)
+    };
+  }
+
+  function setTexto(sel, txt) {
+    if (typeof document === "undefined") return;
+    const el = document.querySelector(sel);
+    if (el) el.textContent = txt;
+  }
+
+  function poblarPerfil() {
+    if (typeof document === "undefined" || typeof GAUD_DATA === "undefined") return;
+    const u = GAUD_DATA.usuario;
+    setTexto(".profile-header-info h2", u.nombre);
+    setTexto('[data-campo="correo-perfil"]', u.email);
+    setTexto('[data-campo="telefono-perfil"]', u.telefono);
+    setTexto('[data-campo="direccion-perfil"]', u.direccion);
+  }
+
+  function poblarAcademico() {
+    if (typeof document === "undefined" || typeof GAUD_DATA === "undefined") return;
+    const res = resumenAcademico(GAUD_DATA.pensum);
+    const fill = document.querySelector(".progress-fill");
+    if (!fill) return;
+    fill.style.width = `${res.porcentaje}%`;
+    const card = fill.closest ? fill.closest(".card") : null;
+    if (card) {
+      const badge = card.querySelector(".badge");
+      if (badge) badge.textContent = `${res.porcentaje}%`;
+    }
+    const labels = document.querySelectorAll(".progress-labels span");
+    if (labels.length >= 2) {
+      labels[0].textContent = `${res.creditosAprobados} créditos aprobados`;
+      labels[1].textContent = `${res.creditosRestantes} créditos restantes`;
     }
   }
 
-  function limpiarError(campo) {
-    var aviso = form.querySelector('[data-error-for="' + campo.id + '"]');
-    campo.classList.remove("is-invalid");
-    campo.classList.add("is-valid");
-    if (aviso) {
-      aviso.textContent = "";
-    }
+  let editando = false;
+  let originales = {};
+
+  function mostrarBotones(enEdicion) {
+    if (typeof document === "undefined") return;
+    const editar = document.querySelector("#btnEditarPerfil");
+    const guardar = document.querySelector("#btnGuardarPerfil");
+    const cancelar = document.querySelector("#btnCancelarPerfil");
+    if (editar) editar.style.display = enEdicion ? "none" : "";
+    if (guardar) guardar.style.display = enEdicion ? "" : "none";
+    if (cancelar) cancelar.style.display = enEdicion ? "" : "none";
   }
 
-  function mostrarAlerta(tipo, mensaje) {
-    alerta.hidden = false;
-    alerta.className = "form-alert form-alert--" + tipo;
-    alerta.textContent = mensaje;
+  function limpiarErrores() {
+    if (typeof document === "undefined") return;
+    document.querySelectorAll(".campo-error").forEach(function (e) { e.remove(); });
+    document.querySelectorAll(".campo-invalido").forEach(function (e) { e.classList.remove("campo-invalido"); });
   }
 
-  function validarNombre(campo) {
-    var valor = texto(campo);
-
-    if (!valor) {
-      mostrarError(campo, "El nombre es obligatorio.");
-      return false;
-    }
-
-    if (valor.length < 5) {
-      mostrarError(campo, "Escribe al menos 5 caracteres.");
-      return false;
-    }
-
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(valor)) {
-      mostrarError(campo, "El nombre solo puede contener letras y espacios.");
-      return false;
-    }
-
-    limpiarError(campo);
-    return true;
+  function iniciarEdicion() {
+    if (typeof document === "undefined" || typeof GAUD_DATA === "undefined") return;
+    if (editando) return;
+    editando = true;
+    const campos = document.querySelectorAll(".info-value[data-editable]");
+    originales = {};
+    campos.forEach(function (campo) {
+      const clave = campo.dataset.campo;
+      originales[clave] = { texto: campo.textContent, editable: campo.dataset.editable };
+      const input = document.createElement("input");
+      input.className = "profile-edit-input";
+      input.dataset.campo = clave;
+      input.value = campo.textContent;
+      campo.replaceWith(input);
+    });
+    mostrarBotones(true);
   }
 
-  function validarCorreo(campo) {
-    var valor = texto(campo);
-
-    if (!valor) {
-      mostrarError(campo, "El correo es obligatorio.");
-      return false;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
-      mostrarError(campo, "Ingresa un correo electrónico válido.");
-      return false;
-    }
-
-    limpiarError(campo);
-    return true;
+  function finalizarEdicion(valores) {
+    if (typeof document === "undefined") return;
+    Object.entries(valores).forEach(function ([clave, txt]) {
+      const input = document.querySelector(`input[data-campo="${clave}"]`);
+      if (!input) return;
+      const span = document.createElement("span");
+      span.className = "info-value";
+      span.dataset.editable = (originales[clave] && originales[clave].editable) || "texto";
+      span.dataset.campo = clave;
+      span.textContent = txt;
+      input.replaceWith(span);
+    });
+    limpiarErrores();
+    editando = false;
+    originales = {};
+    mostrarBotones(false);
   }
 
-  function validarTelefono(campo) {
-    var valor = texto(campo);
-
-    if (!valor) {
-      mostrarError(campo, "El teléfono es obligatorio.");
-      return false;
-    }
-
-    if (!/^(809|829|849)[-\s]?\d{3}[-\s]?\d{4}$/.test(valor)) {
-      mostrarError(campo, "Usa un teléfono dominicano: 809-000-0000.");
-      return false;
-    }
-
-    limpiarError(campo);
-    return true;
+  function guardarEdicion() {
+    if (typeof document === "undefined" || typeof GAUD_DATA === "undefined") return false;
+    let valido = true;
+    const nuevos = {};
+    Object.entries(CAMPOS).forEach(function ([clave, cfg]) {
+      const input = document.querySelector(`input[data-campo="${clave}"]`);
+      if (!input) return;
+      const valor = input.value;
+      if (cfg.validar(valor)) {
+        GAUD_DATA.usuario[cfg.clave] = valor.trim();
+        nuevos[clave] = valor.trim();
+        if (V()) V().limpiarError(input);
+      } else {
+        valido = false;
+        if (V()) V().mostrarError(input, cfg.mensaje);
+      }
+    });
+    if (valido) finalizarEdicion(nuevos);
+    return valido;
   }
 
-  function validarNacimiento(campo) {
-    var valor = texto(campo);
-
-    if (!valor) {
-      mostrarError(campo, "La fecha de nacimiento es obligatoria.");
-      return false;
-    }
-
-    var fecha = new Date(valor + "T00:00:00");
-    if (Number.isNaN(fecha.getTime())) {
-      mostrarError(campo, "La fecha no es válida.");
-      return false;
-    }
-
-    var hoy = new Date();
-    var edad = hoy.getFullYear() - fecha.getFullYear();
-    var mes = hoy.getMonth() - fecha.getMonth();
-    if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
-      edad -= 1;
-    }
-
-    if (fecha > hoy) {
-      mostrarError(campo, "La fecha no puede ser futura.");
-      return false;
-    }
-
-    if (edad < 16) {
-      mostrarError(campo, "Debes tener al menos 16 años.");
-      return false;
-    }
-
-    if (edad > 90) {
-      mostrarError(campo, "Revisa la fecha de nacimiento.");
-      return false;
-    }
-
-    limpiarError(campo);
-    return true;
+  function cancelarEdicion() {
+    if (typeof document === "undefined") return;
+    const originalesTextos = {};
+    Object.keys(CAMPOS).forEach(function (clave) {
+      if (originales[clave]) originalesTextos[clave] = originales[clave].texto;
+    });
+    finalizarEdicion(originalesTextos);
   }
 
-  function validarCedula(campo) {
-    var valor = texto(campo);
-
-    if (!valor) {
-      mostrarError(campo, "La cédula es obligatoria.");
-      return false;
+  function enlazar() {
+    if (typeof document === "undefined" || typeof GAUD_DATA === "undefined") return;
+    poblarPerfil();
+    poblarAcademico();
+    const editar = document.querySelector("#btnEditarPerfil");
+    if (!editar) return;
+    const header = editar.parentElement;
+    let guardar = document.querySelector("#btnGuardarPerfil");
+    let cancelar = document.querySelector("#btnCancelarPerfil");
+    if (!guardar && header) {
+      guardar = document.createElement("button");
+      guardar.id = "btnGuardarPerfil";
+      guardar.className = "btn btn-primary";
+      guardar.type = "button";
+      guardar.textContent = "Guardar";
+      guardar.style.display = "none";
+      header.appendChild(guardar);
     }
-
-    if (!/^\d{3}-\d{7}-\d$/.test(valor)) {
-      mostrarError(campo, "Usa el formato 000-0000000-0.");
-      return false;
+    if (!cancelar && header) {
+      cancelar = document.createElement("button");
+      cancelar.id = "btnCancelarPerfil";
+      cancelar.className = "btn btn-outline";
+      cancelar.type = "button";
+      cancelar.textContent = "Cancelar";
+      cancelar.style.display = "none";
+      header.appendChild(cancelar);
     }
-
-    limpiarError(campo);
-    return true;
+    editar.addEventListener("click", function () { iniciarEdicion(); });
+    if (guardar) guardar.addEventListener("click", function () { guardarEdicion(); });
+    if (cancelar) cancelar.addEventListener("click", function () { cancelarEdicion(); });
   }
 
-  function validarDireccion(campo) {
-    var valor = texto(campo);
-
-    if (!valor) {
-      mostrarError(campo, "La dirección es obligatoria.");
-      return false;
-    }
-
-    if (valor.length < 8) {
-      mostrarError(campo, "Escribe una dirección más completa.");
-      return false;
-    }
-
-    limpiarError(campo);
-    return true;
-  }
-
-  var validadores = {
-    nombre: validarNombre,
-    correo: validarCorreo,
-    telefono: validarTelefono,
-    nacimiento: validarNacimiento,
-    cedula: validarCedula,
-    direccion: validarDireccion,
+  return {
+    CAMPOS,
+    calcularProgreso,
+    resumenAcademico,
+    poblarPerfil,
+    poblarAcademico,
+    iniciarEdicion,
+    guardarEdicion,
+    cancelarEdicion,
+    enlazar
   };
+})();
 
-  Object.keys(campos).forEach(function (id) {
-    var campo = campos[id];
-    campo.addEventListener("blur", function () {
-      validadores[id](campo);
-    });
-    campo.addEventListener("input", function () {
-      if (campo.classList.contains("is-invalid")) {
-        validadores[id](campo);
-      }
-    });
-  });
-
-  form.addEventListener("submit", function (evento) {
-    evento.preventDefault();
-
-    var esValido = true;
-    Object.keys(campos).forEach(function (id) {
-      if (!validadores[id](campos[id])) {
-        esValido = false;
-      }
-    });
-
-    if (!esValido) {
-      mostrarAlerta("error", "Revisa los campos marcados antes de guardar.");
-      var primero = form.querySelector(".is-invalid");
-      if (primero) {
-        primero.focus();
-      }
-      return;
-    }
-
-    var nombre = texto(campos.nombre);
-    if (tituloPerfil) {
-      tituloPerfil.textContent = nombre;
-    }
-    if (nombreSidebar) {
-      nombreSidebar.textContent = nombre;
-    }
-
-    mostrarAlerta("ok", "Los datos del perfil se guardaron correctamente.");
-  });
-});
+if (typeof document !== "undefined") {
+  document.addEventListener("DOMContentLoaded", function () { GAUD_Perfil.enlazar(); });
+}
