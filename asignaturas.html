@@ -7,10 +7,12 @@
 <title>Asignaturas — GAUD</title>
 <link href="icon/icon-web.png" rel="icon" type="image/png"/>
 <link href="css/styles.css" rel="stylesheet"/>
+<script defer="" src="js/datos-seed.js"></script>
+<script defer="" src="js/fechas.js"></script>
+<script defer="" src="js/validaciones.js"></script>
 <script defer="" src="js/header.js"></script>
 <script defer="" src="js/logo.js"></script>
-  <script defer="" src="js/asignaturas-data.js"></script>
-  <script defer="" src="js/asignaturas.js"></script>
+<script defer="" src="js/asignaturas.js"></script>
 <script defer="" src="js/terminos.js"></script>
 </head>
 <body>
@@ -84,6 +86,18 @@
 <span><i class="dot dot-approved"></i> Aprobada</span>
 <span><i class="dot dot-current"></i> En curso</span>
 <span><i class="dot dot-pending"></i> Pendiente</span>
+</div>
+<div class="pensum-tools">
+<div class="pensum-search">
+<input aria-label="Buscar asignatura" placeholder="Buscar por código o nombre…" type="text"/>
+</div>
+<div class="pensum-filters">
+<button class="activo" data-estado="todas" type="button">Todas</button>
+<button data-estado="aprobada" type="button">Aprobadas</button>
+<button data-estado="en-curso" type="button">En curso</button>
+<button data-estado="pendiente" type="button">Pendientes</button>
+</div>
+<span class="pensum-count">62 asignaturas</span>
 </div>
 <div class="pensum-scroll">
 <div class="pensum-grid"></div>
