@@ -1,158 +1,56 @@
-// =====================================================
-// MANEJO DINÁMICO DE FECHAS Y ALERTAS TEMPORALES
-// FASE 2 - GAUD
-// =====================================================
+const GAUD_Fechas = (function () {
+  const MESES_LARGO = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const MESES_CORTO = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
 
-// Fechas importantes del período académico
-const fechasAcademicas = {
-    inicioPeriodo: new Date(2026, 7, 1),
-    finPeriodo: new Date(2026, 9, 31),
-    entregaFase1: new Date(2026, 8, 8),
-    seleccionInicio: new Date(2026, 9, 5),
-    seleccionFin: new Date(2026, 9, 12),
-    retiroAsignaturas: new Date(2026, 8, 30)
-};
+  function aFecha(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(y, m - 1, d);
+  }
 
-// Calcula cuántos días faltan para una fecha determinada
-function calcularDiasRestantes(fechaObjetivo) {
-    const hoy = new Date();
-    hoy.setHours(0, 0, 0, 0);
+  function capitalizar(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
 
-    const objetivo = new Date(fechaObjetivo);
-    objetivo.setHours(0, 0, 0, 0);
+  function hoy() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  }
 
-    const diferencia = objetivo - hoy;
+  function formatearLarga(iso) {
+    const f = aFecha(iso);
+    return `${f.getDate()} de ${MESES_LARGO[f.getMonth()]} de ${f.getFullYear()}`;
+  }
 
-    return Math.ceil(
-        diferencia / (1000 * 60 * 60 * 24)
-    );
-}
+  function formatearCorta(iso) {
+    const f = aFecha(iso);
+    return `${String(f.getDate()).padStart(2, "0")}/${String(f.getMonth() + 1).padStart(2, "0")}/${f.getFullYear()}`;
+  }
 
-// Convierte una fecha a formato legible en español
-function formatearFecha(fecha) {
-    return fecha.toLocaleDateString("es-DO", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
-}
+  function diasHasta(iso, refIso = hoy()) {
+    return Math.round((aFecha(iso) - aFecha(refIso)) / 86400000);
+  }
 
-// Formatea el rango del período académico
-function formatearRango(inicio, fin) {
-    const mesInicio = inicio.toLocaleDateString(
-        "es-DO",
-        { month: "short" }
-    );
+  function relativa(iso, refIso = hoy()) {
+    const d = diasHasta(iso, refIso);
+    if (d === 0) return "hoy";
+    if (d === 1) return "mañana";
+    if (d === -1) return "ayer";
+    if (d > 1) return `en ${d} días`;
+    return `hace ${Math.abs(d)} días`;
+  }
 
-    const mesFin = fin.toLocaleDateString(
-        "es-DO",
-        { month: "short" }
-    );
+  function rangoPeriodo(inicioIso, finIso) {
+    const ini = aFecha(inicioIso);
+    const fin = aFecha(finIso);
+    const mesIni = capitalizar(MESES_CORTO[ini.getMonth()]);
+    const mesFin = capitalizar(MESES_CORTO[fin.getMonth()]);
+    const anio = fin.getFullYear();
+    return mesIni === mesFin ? `${mesIni} ${anio}` : `${mesIni} - ${mesFin} ${anio}`;
+  }
 
-    return `${mesInicio} - ${mesFin} ${fin.getFullYear()}`;
-}
+  function esHoy(iso, refIso = hoy()) {
+    return diasHasta(iso, refIso) === 0;
+  }
 
-// Genera mensajes dependiendo de los días restantes
-function mensajeTemporal(dias) {
-
-    if (dias === 0) {
-        return "Hoy";
-    }
-
-    if (dias === 1) {
-        return "Mañana";
-    }
-
-    if (dias > 1) {
-        return `Faltan ${dias} días`;
-    }
-
-    if (dias === -1) {
-        return "Fue ayer";
-    }
-
-    return `Pasó hace ${Math.abs(dias)} días`;
-}
-
-// Actualiza dinámicamente el rango del período
-function actualizarRangoPeriodo() {
-
-    const elemento =
-        document.getElementById("rango-periodo");
-
-    if (elemento) {
-        elemento.textContent = formatearRango(
-            fechasAcademicas.inicioPeriodo,
-            fechasAcademicas.finPeriodo
-        );
-    }
-}
-
-// Actualiza las alertas temporales del dashboard
-function actualizarAvisosTemporales() {
-
-    const avisoEntrega =
-        document.getElementById("aviso-entrega");
-
-    const avisoSeleccion =
-        document.getElementById("aviso-seleccion");
-
-    const avisoRetiro =
-        document.getElementById("aviso-retiro");
-
-
-    const diasEntrega =
-        calcularDiasRestantes(
-            fechasAcademicas.entregaFase1
-        );
-
-    const diasSeleccion =
-        calcularDiasRestantes(
-            fechasAcademicas.seleccionInicio
-        );
-
-    const diasRetiro =
-        calcularDiasRestantes(
-            fechasAcademicas.retiroAsignaturas
-        );
-
-
-    if (avisoEntrega) {
-
-        avisoEntrega.textContent =
-            `Entrega Fase 1 de ISW-306: ${
-                formatearFecha(fechasAcademicas.entregaFase1)
-            } · ${mensajeTemporal(diasEntrega)}`;
-    }
-
-
-    if (avisoSeleccion) {
-
-        avisoSeleccion.textContent =
-            `Selección de asignaturas próximo período: ${
-                formatearFecha(fechasAcademicas.seleccionInicio)
-            } al ${
-                formatearFecha(fechasAcademicas.seleccionFin)
-            } · ${mensajeTemporal(diasSeleccion)}`;
-    }
-
-
-    if (avisoRetiro) {
-
-        avisoRetiro.textContent =
-            `Fecha límite retiro de asignaturas: ${
-                formatearFecha(fechasAcademicas.retiroAsignaturas)
-            } · ${mensajeTemporal(diasRetiro)}`;
-    }
-}
-
-// Ejecutar cuando el contenido de la página esté cargado
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        actualizarRangoPeriodo();
-        actualizarAvisosTemporales();
-
-    }
-);
+  return { hoy, formatearLarga, formatearCorta, diasHasta, relativa, rangoPeriodo, esHoy };
+})();
