@@ -129,6 +129,19 @@ button:disabled, .btn:disabled {
         gap: 12px;
     }
 
+    header span {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    header a,
+    header button {
+        margin-left: 0;
+    }
+
     main {
         padding: 12px;
     }
