@@ -176,9 +176,18 @@ button:disabled, .btn:disabled {
             <div class="error">{{ session('error') }}</div>
         @endif
 
-        @if($errors->any())
-            <div class="error">{{ $errors->first() }}</div>
-        @endif
+        
+@if($errors->any())
+    <div class="error" role="alert">
+        <strong>Por favor, revisa los siguientes errores:</strong>
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
         <div class="tarjeta">
             <h3>Nueva asignatura</h3>
