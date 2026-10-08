@@ -20,6 +20,63 @@
         .ok { background: #e6f4ea; color: #1e6b34; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
         .error { background: #fde8e8; color: #b00020; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
         .inline { display: inline; }
+        /* Mejoras de mensajes de error - Fase 4 */
+
+.error {
+    border-left: 4px solid #b00020;
+    font-weight: 500;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.ok {
+    border-left: 4px solid #1e6b34;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: #b00020;
+}
+
+input:focus-visible {
+    outline: 2px solid #285a91;
+    outline-offset: 2px;
+}
+
+        /* Mejoras visuales de botones - Fase 4 */
+
+button, .btn {
+    transition: background-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+    font-weight: 600;
+}
+
+button:hover, .btn:hover {
+    background-color: #285a91;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:focus-visible, .btn:focus-visible {
+    outline: 3px solid #72b4ff;
+    outline-offset: 3px;
+}
+
+button:active, .btn:active {
+    transform: translateY(0);
+}
+
+button.rojo:hover {
+    background-color: #8b0019;
+}
+
+button:disabled, .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
         /* Estilos de formularios - Fase 4 */
 
 .fila label {
