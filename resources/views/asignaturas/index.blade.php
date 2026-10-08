@@ -20,6 +20,42 @@
         .ok { background: #e6f4ea; color: #1e6b34; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
         .error { background: #fde8e8; color: #b00020; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
         .inline { display: inline; }
+        /* Diseño responsivo para Asignaturas */
+
+.tabla-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    main {
+        padding: 12px;
+    }
+
+    .tarjeta {
+        padding: 15px;
+    }
+
+    .fila {
+        flex-direction: column;
+    }
+
+    .fila input,
+    .fila button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tabla-responsive table {
+        min-width: 600px;
+    }
+}
     </style>
 </head>
 <body>
@@ -65,7 +101,8 @@
         <div class="tarjeta">
             <h3>Listado de asignaturas</h3>
 
-            <table>
+            <div class="tabla-responsive">
+    <table>
                 <thead>
                     <tr>
                         <th>Código</th>
@@ -96,6 +133,7 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
         </div>
     </main>
 </body>
