@@ -20,6 +20,44 @@
         .ok { background: #e6f4ea; color: #1e6b34; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
         .error { background: #fde8e8; color: #b00020; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
         .inline { display: inline; }
+        /* Estilos de formularios - Fase 4 */
+
+.fila label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a3a6b;
+    flex: 1 1 180px;
+}
+
+.fila label input {
+    width: 100%;
+    box-sizing: border-box;
+    font-weight: normal;
+}
+
+.fila input:focus {
+    outline: 2px solid #3478c0;
+    outline-offset: 1px;
+}
+
+.fila button {
+    align-self: flex-end;
+    min-height: 38px;
+}
+
+@media (max-width: 768px) {
+    .fila label {
+        width: 100%;
+        flex: auto;
+    }
+
+    .fila button {
+        align-self: stretch;
+    }
+}
         /* Diseño responsivo para Asignaturas */
 
 .tabla-responsive {
@@ -90,10 +128,29 @@
 
             <form method="POST" action="{{ route('asignaturas.store') }}" class="fila">
                 @csrf
-                <input type="text" name="codigo" placeholder="Código" maxlength="20" value="{{ old('codigo') }}" required>
-                <input type="text" name="nombre" placeholder="Nombre" maxlength="150" value="{{ old('nombre') }}" required>
-                <input type="number" name="creditos" placeholder="Créditos" min="1" max="20" value="{{ old('creditos') }}" required>
-                <input type="number" name="periodo" placeholder="Periodo" min="1" max="20" value="{{ old('periodo') }}" required>
+              <label>
+    Código
+    <input type="text" name="codigo" placeholder="Ej. ISW-306"
+           maxlength="20" value="{{ old('codigo') }}" required>
+</label>
+
+<label>
+    Nombre de la asignatura
+    <input type="text" name="nombre" placeholder="Ej. Desarrollo de Aplicaciones Web"
+           maxlength="150" value="{{ old('nombre') }}" required>
+</label>
+
+<label>
+    Créditos
+    <input type="number" name="creditos" placeholder="Ej. 4"
+           min="1" max="20" value="{{ old('creditos') }}" required>
+</label>
+
+<label>
+    Período
+    <input type="number" name="periodo" placeholder="Ej. 7"
+           min="1" max="20" value="{{ old('periodo') }}" required>
+</label>
                 <button type="submit">Guardar</button>
             </form>
         </div>
