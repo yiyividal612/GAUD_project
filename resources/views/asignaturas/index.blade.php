@@ -249,7 +249,7 @@ button:disabled, .btn:disabled {
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($asignaturas as $asignatura)
+                    @forelse($asignaturas as $asignatura)
                         <tr>
                             <td>{{ $asignatura->codigo }}</td>
                             <td>{{ $asignatura->nombre }}</td>
@@ -266,7 +266,9 @@ button:disabled, .btn:disabled {
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr><td colspan="5">Aún no hay asignaturas registradas. Usa el formulario de arriba para crear la primera.</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
