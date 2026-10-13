@@ -180,6 +180,6 @@ Deja la terminal abierta mientras uses la aplicación; si la cierras, el servido
 | Julio Toribio | Vistas Blade (tabla con aviso cuando no hay asignaturas) y documentación (README) |
 | Reynaldo Jesús Peña | Migración del backend a Laravel |
 | Yerlin De León Vidal | Integración general e integración del frontend en Laravel |
-| Tommy Regalado | Integración del frontend en Laravel |
+| Tommysam Regalado | Integración del frontend en Laravel |
 | Lancelot Rubiera | UI/UX y revisión visual |
-| Staling Batista | UI/UX y revisión visual |
+| Starling Batista | UI/UX y revisión visual |
