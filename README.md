@@ -177,6 +177,7 @@ Deja la terminal abierta mientras uses la aplicación; si la cierras, el servido
 
 | Integrante | Aporte en la Fase 4 |
 |---|---|
+| Yudelka Corcino Pérez | Integración inicial y configuración del framework Laravel en GAUD_project, conexión con MySQL, adaptación del login, autenticación y manejo de sesiones, protección del dashboard, configuración de rutas y controladores, implementación y funcionamiento del CRUD de asignaturas mediante vistas Blade y publicación de los cambios en GitHub. |
 | Julio Toribio | Vistas Blade (tabla con aviso cuando no hay asignaturas) y documentación (README) |
 | Reynaldo Jesús Peña | Migración del backend a Laravel |
 | Yerlin De León Vidal | Integración general e integración del frontend en Laravel |
