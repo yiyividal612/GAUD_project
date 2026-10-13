@@ -178,8 +178,8 @@ Deja la terminal abierta mientras uses la aplicación; si la cierras, el servido
 | Integrante | Aporte en la Fase 4 |
 |---|---|
 | Julio Toribio | Vistas Blade (tabla con aviso cuando no hay asignaturas) y documentación (README) |
-| Yerlin De León Vidal | [COMPLETAR] |
-| Yudelka Corcino Perez | [COMPLETAR] |
-| [COMPLETAR NOMBRE] | [COMPLETAR] |
-| [COMPLETAR NOMBRE] | [COMPLETAR] |
-| [COMPLETAR NOMBRE] | [COMPLETAR] |
+| Reynaldo Jesús Peña | Migración del backend a Laravel |
+| Yerlin De León Vidal | Integración general e integración del frontend en Laravel |
+| Tommy Regalado | Integración del frontend en Laravel |
+| Lancelot Rubiera | UI/UX y revisión visual |
+| Staling Batista | UI/UX y revisión visual |
