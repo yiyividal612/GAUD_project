@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AsignaturaController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -12,13 +13,7 @@ Route::get('/login', [LoginController::class, 'mostrarLogin'])->name('login');
 
 Route::post('/login', [LoginController::class, 'iniciarSesion'])->name('login.procesar');
 
-Route::get('/dashboard', function () {
-    if (!session()->has('id_usuario')) {
-        return redirect('/login');
-    }
-
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::post('/logout', [LoginController::class, 'cerrarSesion'])->name('logout');
 Route::get('/asignaturas', [AsignaturaController::class, 'index'])->name('asignaturas.index');
