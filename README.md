@@ -1,5 +1,7 @@
 # GAUD
 
+## Definición del proyecto
+
 Aplicación web orientada a estudiantes universitarios en República Dominicana, para facilitar la gestión y consulta de su progreso académico. Proyecto del grupo 10, desarrollado por fases con Git, GitHub y ClickUp.
 
 En la **Fase 4** la aplicación (login, sesiones y CRUD de la Fase 3) se integró en el framework **Laravel 12**.
@@ -31,7 +33,7 @@ Node.js y npm **no** son necesarios para ejecutar la aplicación.
 - **MySQL o MariaDB** en ejecución (por ejemplo, el de XAMPP, con el módulo MySQL iniciado).
 - **Git**.
 
-## Instalación y ejecución local
+## Instalación y configuración
 
 Los comandos están pensados para Git Bash o una terminal equivalente.
 
@@ -74,7 +76,20 @@ CACHE_STORE=file
 
 El archivo `.env` es personal y **nunca se sube al repositorio**.
 
-### 4. Crear la base de datos con datos de prueba
+Después de configurar el entorno, continúa con la sección **Base de datos**.
+
+## Base de datos
+
+La aplicación usa la base de datos `gaud`, con cuatro tablas:
+
+| Tabla | Contenido |
+|---|---|
+| `usuarios` | Cuentas de acceso: nombre, correo (único) y contraseña guardada con hash |
+| `perfiles` | Datos académicos de cada usuario (universidad, carrera, índice y créditos); un perfil por usuario |
+| `asignaturas` | Código (único), nombre, créditos y periodo de cada asignatura |
+| `estudiante_asignatura` | Relaciona a los usuarios con las asignaturas, con su calificación y estado |
+
+### Crear la base de datos con datos de prueba
 
 Con MySQL iniciado, desde la carpeta del proyecto:
 
@@ -89,16 +104,8 @@ En XAMPP el programa `mysql` está en `C:\xampp\mysql\bin\mysql.exe`. Alternativ
 
 Qué contiene cada script:
 
-- `database/gaud_mysql.sql`: crea la base `gaud`, sus 4 tablas (`usuarios`, `perfiles`, `asignaturas`, `estudiante_asignatura`) y carga asignaturas de ejemplo.
+- `database/gaud_mysql.sql`: crea la base `gaud`, sus 4 tablas y carga asignaturas de ejemplo.
 - `database/usuario_prueba.sql`: crea el usuario de demostración.
-
-### 5. Iniciar la aplicación
-
-```bash
-php artisan serve
-```
-
-Abre `http://127.0.0.1:8000/login` en el navegador. Deja esa terminal abierta mientras uses la aplicación.
 
 ## Credenciales del usuario de demostración
 
@@ -107,6 +114,19 @@ Abre `http://127.0.0.1:8000/login` en el navegador. Deja esa terminal abierta mi
 | `admin@gaud.com` | `Admin123` |
 
 Son credenciales de prueba, solo para uso local.
+
+## Cómo ejecutar
+
+1. Inicia MySQL (en XAMPP, el botón **Start** del módulo MySQL).
+2. Desde la carpeta del proyecto, arranca el servidor de desarrollo de Laravel:
+
+```bash
+php artisan serve
+```
+
+3. Abre `http://127.0.0.1:8000/login` en el navegador e inicia sesión con el usuario de demostración.
+
+Deja la terminal abierta mientras uses la aplicación; si la cierras, el servidor se detiene.
 
 ## Estructura del proyecto
 
