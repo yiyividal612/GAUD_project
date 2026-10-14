@@ -140,7 +140,7 @@ Deja la terminal abierta mientras uses la aplicación; si la cierras, el servido
 | `public/css/` y `public/icon/` | Estilos del diseño GAUD (`styles.css`) e íconos |
 | `database/` | Scripts SQL (estructura, datos de prueba y usuario de demostración) |
 | `.env.example` | Plantilla de configuración del entorno |
-| `fase3_backup/` | Respaldo del código de la Fase 3 |
+| `fase3_backup/` | Copia del archivo de conexión a la base de datos de la Fase 3 (`conexion.php`) |
 
 ### Rutas principales
 
