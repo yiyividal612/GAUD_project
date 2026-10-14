@@ -133,8 +133,11 @@ Deja la terminal abierta mientras uses la aplicación; si la cierras, el servido
 | Ruta | Contenido |
 |---|---|
 | `routes/web.php` | Rutas de la aplicación |
-| `app/Http/Controllers/` | `LoginController` y `AsignaturaController` |
+| `app/Http/Controllers/` | `LoginController`, `DashboardController` y `AsignaturaController` |
 | `resources/views/` | Vistas Blade: `login`, `dashboard`, `welcome` y `asignaturas/` (`index`, `edit`) |
+| `resources/views/layouts/` | Plantilla base compartida (`app.blade.php`) |
+| `resources/views/partials/` | Fragmentos reutilizables: `sidebar` y `alerts` |
+| `public/css/` y `public/icon/` | Estilos del diseño GAUD (`styles.css`) e íconos |
 | `database/` | Scripts SQL (estructura, datos de prueba y usuario de demostración) |
 | `.env.example` | Plantilla de configuración del entorno |
 | `fase3_backup/` | Respaldo del código de la Fase 3 |
@@ -146,7 +149,7 @@ Deja la terminal abierta mientras uses la aplicación; si la cierras, el servido
 | GET | `/` | Página de inicio |
 | GET / POST | `/login` | Mostrar el formulario y validar el acceso |
 | POST | `/logout` | Cerrar sesión |
-| GET | `/dashboard` | Panel (requiere sesión) |
+| GET | `/dashboard` | Panel con datos de la base de datos (requiere sesión) |
 | GET / POST | `/asignaturas` | Listar y crear asignaturas |
 | GET | `/asignaturas/{id}/editar` | Formulario de edición |
 | PUT | `/asignaturas/{id}` | Actualizar una asignatura |
@@ -156,6 +159,7 @@ Deja la terminal abierta mientras uses la aplicación; si la cierras, el servido
 
 - **Rutas y controladores:** `routes/web.php` asocia cada URL con un método de un controlador (por ejemplo, `asignaturas.store` con `AsignaturaController@store`), de modo que la lógica queda separada de la presentación.
 - **Vistas Blade:** el HTML vive en `resources/views`; Blade permite usar directivas como `@foreach`, `@forelse`, `@error` y `@csrf`.
+- **Plantilla compartida:** `layouts/app.blade.php` y los fragmentos de `partials/` (barra lateral y mensajes) evitan repetir el diseño en cada vista.
 - **Protección CSRF:** todos los formularios incluyen `@csrf`; los de edición y borrado usan `@method('PUT')` y `@method('DELETE')`.
 - **Sesiones:** el controlador de login guarda al usuario en la sesión y la usan las páginas protegidas.
 
