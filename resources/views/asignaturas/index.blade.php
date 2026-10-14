@@ -1,278 +1,108 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GAUD - Asignaturas</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; background: #f2f4f8; }
-        header { background: #1a3a6b; color: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
-        header a, header button { color: #fff; margin-left: 16px; }
-        header button { background: none; border: none; text-decoration: underline; cursor: pointer; font-size: inherit; }
-        main { padding: 24px; max-width: 900px; margin: auto; }
-        .tarjeta { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-        .fila { display: flex; gap: 10px; flex-wrap: wrap; }
-        input { padding: 9px; border: 1px solid #ccc; border-radius: 6px; }
-        button, .btn { padding: 9px 14px; background: #1a3a6b; color: #fff; border: 0; border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 14px; }
-        .rojo { background: #b00020; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e3e6ec; }
-        .ok { background: #e6f4ea; color: #1e6b34; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
-        .error { background: #fde8e8; color: #b00020; padding: 10px; border-radius: 6px; margin-bottom: 16px; }
-        .inline { display: inline; }
-        /* Mejoras de mensajes de error - Fase 4 */
+@extends('layouts.app')
 
-.error {
-    border-left: 4px solid #b00020;
-    font-weight: 500;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-}
+@section('title', 'Asignaturas')
 
-.ok {
-    border-left: 4px solid #1e6b34;
-    font-weight: 500;
-    line-height: 1.5;
-}
+@section('page-title', 'Mis Asignaturas')
 
-input:invalid:not(:placeholder-shown) {
-    border-color: #b00020;
-}
+@section('page-subtitle', 'Gestión del catálogo de asignaturas del pénsum')
 
-input:focus-visible {
-    outline: 2px solid #285a91;
-    outline-offset: 2px;
-}
+@section('topbar-actions')
+    <a href="{{ route('dashboard') }}" class="btn btn-outline">Volver</a>
+@endsection
 
-        /* Mejoras visuales de botones - Fase 4 */
+@section('content')
 
-button, .btn {
-    transition: background-color 0.2s ease,
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-    font-weight: 600;
-}
-
-button:hover, .btn:hover {
-    background-color: #285a91;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
-button:focus-visible, .btn:focus-visible {
-    outline: 3px solid #72b4ff;
-    outline-offset: 3px;
-}
-
-button:active, .btn:active {
-    transform: translateY(0);
-}
-
-button.rojo:hover {
-    background-color: #8b0019;
-}
-
-button:disabled, .btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-}
-        /* Estilos de formularios - Fase 4 */
-
-.fila label {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #1a3a6b;
-    flex: 1 1 180px;
-}
-
-.fila label input {
-    width: 100%;
-    box-sizing: border-box;
-    font-weight: normal;
-}
-
-.fila input:focus {
-    outline: 2px solid #3478c0;
-    outline-offset: 1px;
-}
-
-.fila button {
-    align-self: flex-end;
-    min-height: 38px;
-}
-
-@media (max-width: 768px) {
-    .fila label {
-        width: 100%;
-        flex: auto;
-    }
-
-    .fila button {
-        align-self: stretch;
-    }
-}
-        /* Diseño responsivo para Asignaturas */
-
-.tabla-responsive {
-    width: 100%;
-    overflow-x: auto;
-}
-
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    header span {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-    }
-
-    header a,
-    header button {
-        margin-left: 0;
-    }
-
-    main {
-        padding: 12px;
-    }
-
-    .tarjeta {
-        padding: 15px;
-    }
-
-    .fila {
-        flex-direction: column;
-    }
-
-    .fila input,
-    .fila button {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .tabla-responsive table {
-        min-width: 600px;
-    }
-}
-    </style>
-</head>
-<body>
-    <header>
-        <strong>GAUD</strong>
-        <span>
-            Sesión de: {{ session('nombre') }}
-            <a href="{{ route('dashboard') }}">Panel</a>
-
-            <form method="POST" action="{{ route('logout') }}" class="inline">
-                @csrf
-                <button type="submit">Cerrar sesión</button>
-            </form>
-        </span>
-    </header>
-
-    <main>
-        @if(session('ok'))
-            <div class="ok">{{ session('ok') }}</div>
-        @endif
-
-        @if(session('error'))
-            <div class="error">{{ session('error') }}</div>
-        @endif
-
-        
-@if($errors->any())
-    <div class="error" role="alert">
-        <strong>Por favor, revisa los siguientes errores:</strong>
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-
-        <div class="tarjeta">
+    {{-- Crear asignatura --}}
+    <div class="card">
+        <div class="card-header">
             <h3>Nueva asignatura</h3>
-
-            <form method="POST" action="{{ route('asignaturas.store') }}" class="fila">
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ route('asignaturas.store') }}" class="crud-form">
                 @csrf
-              <label>
-    Código
-    <input type="text" name="codigo" placeholder="Ej. ISW-306"
-           maxlength="20" value="{{ old('codigo') }}" required>
-</label>
 
-<label>
-    Nombre de la asignatura
-    <input type="text" name="nombre" placeholder="Ej. Desarrollo de Aplicaciones Web"
-           maxlength="150" value="{{ old('nombre') }}" required>
-</label>
+                <div class="form-group">
+                    <label for="codigo">Código</label>
+                    <input type="text" id="codigo" name="codigo" placeholder="Ej. ISW-306"
+                           maxlength="20" value="{{ old('codigo') }}"
+                           aria-invalid="{{ $errors->has('codigo') ? 'true' : 'false' }}" required>
+                </div>
 
-<label>
-    Créditos
-    <input type="number" name="creditos" placeholder="Ej. 4"
-           min="1" max="20" value="{{ old('creditos') }}" required>
-</label>
+                <div class="form-group">
+                    <label for="nombre">Nombre de la asignatura</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej. Desarrollo de Aplicaciones Web"
+                           maxlength="150" value="{{ old('nombre') }}"
+                           aria-invalid="{{ $errors->has('nombre') ? 'true' : 'false' }}" required>
+                </div>
 
-<label>
-    Período
-    <input type="number" name="periodo" placeholder="Ej. 7"
-           min="1" max="20" value="{{ old('periodo') }}" required>
-</label>
-                <button type="submit">Guardar</button>
+                <div class="form-group">
+                    <label for="creditos">Créditos</label>
+                    <input type="number" id="creditos" name="creditos" placeholder="Ej. 4"
+                           min="1" max="20" value="{{ old('creditos') }}"
+                           aria-invalid="{{ $errors->has('creditos') ? 'true' : 'false' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="periodo">Período</label>
+                    <input type="number" id="periodo" name="periodo" placeholder="Ej. 7"
+                           min="1" max="20" value="{{ old('periodo') }}"
+                           aria-invalid="{{ $errors->has('periodo') ? 'true' : 'false' }}" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-auto">Guardar</button>
             </form>
         </div>
+    </div>
 
-        <div class="tarjeta">
+    {{-- Listado de asignaturas --}}
+    <div class="card">
+        <div class="card-header">
             <h3>Listado de asignaturas</h3>
-
-            <div class="tabla-responsive">
-    <table>
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Créditos</th>
-                        <th>Periodo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($asignaturas as $asignatura)
+            <span class="badge badge-info">{{ $asignaturas->count() }} registradas</span>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ $asignatura->codigo }}</td>
-                            <td>{{ $asignatura->nombre }}</td>
-                            <td>{{ $asignatura->creditos }}</td>
-                            <td>{{ $asignatura->periodo }}</td>
-                            <td>
-                                <a class="btn" href="{{ route('asignaturas.edit', $asignatura->id_asignatura) }}">Editar</a>
-
-                                <form class="inline" method="POST" action="{{ route('asignaturas.destroy', $asignatura->id_asignatura) }}"
-                                      onsubmit="return confirm('¿Seguro que deseas eliminar esta asignatura?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="rojo">Eliminar</button>
-                                </form>
-                            </td>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Créditos</th>
+                            <th>Período</th>
+                            <th>Acciones</th>
                         </tr>
-                    @empty
-                        <tr><td colspan="5">Aún no hay asignaturas registradas. Usa el formulario de arriba para crear la primera.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse($asignaturas as $asignatura)
+                            <tr>
+                                <td>{{ $asignatura->codigo }}</td>
+                                <td>{{ $asignatura->nombre }}</td>
+                                <td>{{ $asignatura->creditos }}</td>
+                                <td>{{ $asignatura->periodo }}</td>
+                                <td>
+                                    <div class="actions">
+                                        <a class="btn btn-outline btn-sm" href="{{ route('asignaturas.edit', $asignatura->id_asignatura) }}">Editar</a>
+
+                                        <form method="POST" action="{{ route('asignaturas.destroy', $asignatura->id_asignatura) }}"
+                                              onsubmit="return confirm('¿Seguro que deseas eliminar esta asignatura?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="empty">
+                                    Aún no hay asignaturas registradas. Usa el formulario de arriba para crear la primera.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-        </div>
-    </main>
-</body>
-</html>
+    </div>
+
+@endsection
