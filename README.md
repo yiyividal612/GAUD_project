@@ -60,7 +60,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Abre el archivo `.env` y verifica que estas líneas tengan los siguientes valores (en `.env.example` algunas vienen con otro valor por defecto):
+El archivo `.env.example` ya viene configurado para MySQL y con las sesiones y la caché en archivos, de modo que el `.env` queda con estos valores:
 
 ```env
 DB_CONNECTION=mysql
@@ -74,7 +74,7 @@ SESSION_DRIVER=file
 CACHE_STORE=file
 ```
 
-El archivo `.env` es personal y **nunca se sube al repositorio**.
+Si tu MySQL usa una contraseña o un usuario distinto, edita `DB_USERNAME` y `DB_PASSWORD` en el `.env`. El archivo `.env` es personal y **nunca se sube al repositorio**.
 
 Después de configurar el entorno, continúa con la sección **Base de datos**.
 
